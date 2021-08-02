@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TagGroupElementMapper"> 
+
+  <select id="selectTagGroupElement">
+        SELECT
+            savetagname
+            , savegroup
+        FROM react.savetag
+        WHERE usernum = #{userNumber} AND savegroup = #{tagGroupName} AND savetagname NOT IN ('qpwoeieru1j1b2u2busu2o2')
+  </select>
+
+    <delete id="deleteTagGroupElement">
+        DELETE
+        FROM react.savetag
+        WHERE usernum = #{userNumber} AND savegroup = #{TagGroup} AND savetagname = #{TagName}
+    </delete>
+
+    <delete id="deleteTagGroupElement2">
+        DELETE
+        FROM react.savetag
+        WHERE usernum = #{userNumber} AND savegroup = #{TagGroup}
+    </delete>
+
+    <update id="updateTagGroupElement"> 
+        UPDATE react.savetag
+        SET
+            savegroup = #{ChangeName}
+        WHERE usernum = #{userNumber} AND savegroup = #{ExistingName}
+    </update>
+
+      <insert id="insertNewTagname"> 
+        INSERT INTO react.savetag
+        (
+            usernum
+            , savegroup
+            , savetagname
+        )
+        VALUES (
+        #{userNumber}
+        , #{groupName}      
+        , #{newTagName}
+        )
+    </insert>  
+
+      <insert id="insertNewTagGroup"> 
+        INSERT INTO react.savetag
+        (
+            usernum
+            , savegroup
+            , savetagname
+        )
+        VALUES (
+        #{userNumber}
+        , #{groupName}      
+        , #{newTagName}
+        )
+    </insert>  
+
+</mapper>

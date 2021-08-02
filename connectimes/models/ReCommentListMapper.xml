@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReCommentListMapper">
+
+  <select id="selectReComment"> 
+    SELECT
+      commentnum
+      , re_commentnum
+      , (SELECT nickname
+        FROM react.user
+        WHERE react.user.usernum = react.re_comment.usernum) AS nickname
+      , text
+      , likes AS likecount
+      , regtime
+    , (SELECT profilephoto
+        FROM react.user
+        WHERE react.user.usernum = react.re_comment.usernum) AS profilephoto
+    FROM react.re_comment
+    WHERE commentnum = #{commentNum}
+  </select>

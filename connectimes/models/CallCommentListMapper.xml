@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CallCommentListMapper"> 
+
+  <select id="selectCommentList">
+    SELECT
+      commentnum
+      , (SELECT nickname
+        FROM react.user
+        WHERE react.user.usernum = react.comment.usernum) AS nickname
+      , text
+      , likes AS likecount
+      , (SELECT COUNT(*)
+        FROM react.comment
+        WHERE postnum = #{postNum}) AS commentcount
+      , regtime
+    , (SELECT profilephoto
+        FROM react.user
+        WHERE react.user.usernum = react.comment.usernum) AS profilephoto
+    , (SELECT COUNT(*) FROM re_comment WHERE react.comment.commentnum = react.re_comment.commentnum) AS re_commentcount
+    , postnum
+    FROM react.comment
+    WHERE postnum = #{postNum}
+    ORDER BY likes DESC
+    LIMIT 3
+  </select>
+
+  <select id="selectCommentList2">
+    SELECT
+      commentnum
+      , (SELECT nickname
+        FROM react.user
+        WHERE react.user.usernum = react.comment.usernum) AS nickname
+      , text
+      , likes AS likecount
+      , (SELECT COUNT(*)
+        FROM react.comment
+        WHERE postnum = #{postNum}) AS commentcount
+      , regtime
+    , (SELECT profilephoto
+        FROM react.user
+        WHERE react.user.usernum = react.comment.usernum) AS profilephoto
+    , (SELECT COUNT(*) FROM re_comment WHERE react.comment.commentnum = react.re_comment.commentnum) AS re_commentcount
+    , postnum
+    FROM react.comment
+    WHERE postnum = #{postNum}
+    ORDER BY ${order}
+    LIMIT 3
+  </select>
+
+    <select id="selectCommentList3">
+    SELECT
+      commentnum
+      , (SELECT nickname
+        FROM react.user
+        WHERE react.user.usernum = react.comment.usernum) AS nickname
+      , text
+      , likes AS likecount
+      , (SELECT COUNT(*)
+        FROM react.comment
+        WHERE postnum = #{postNum}) AS commentcount
+      , regtime
+    , (SELECT profilephoto
+        FROM react.user
+        WHERE react.user.usernum = react.comment.usernum) AS profilephoto
+    , (SELECT COUNT(*) FROM re_comment WHERE react.comment.commentnum = react.re_comment.commentnum) AS re_commentcount
+    , postnum
+    FROM react.comment
+    WHERE postnum = #{postNum}
+    ORDER BY ${order}
+  </select>
+
+</mapper>

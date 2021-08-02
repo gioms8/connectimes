@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FollowMapper">
+
+    <select id="selectFollowInfo1">
+        SELECT COUNT(*) AS follower
+        FROM react.follow
+        WHERE followeruser = (SELECT usernum
+                              FROM react.user
+                              WHERE nickname = #{nickname})
+    </select>
+
+    <select id="selectFollowInfo2">
+        SELECT COUNT(*) AS following
+        FROM react.follow
+        WHERE followinguser = (SELECT usernum
+                              FROM react.user
+                              WHERE nickname = #{nickname})
+    </select>
+
+    <insert id="insertFollowInfo"> 
+        INSERT INTO react.follow
+        (
+            followeruser
+            , followinguser
+            , regTime
+        )
+        VALUES (
+        #{usernum}      
+        , (SELECT usernum
+            FROM react.user
+            WHERE nickname = #{nickname} )
+        , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+        )
+    </insert>
+
+    <delete id="deleteFollowInfo"> 
+        DELETE
+        FROM react.follow
+        WHERE followeruser = #{usernum} AND followinguser = (SELECT usernum
+                                                            FROM react.user
+                                                            WHERE nickname = #{nickname})
+    </delete>  
+
+</mapper>

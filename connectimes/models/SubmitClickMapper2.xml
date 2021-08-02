@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SubmitClickMapper2">  
+
+  <update id="updateSubmitClick2"> 
+    UPDATE react.user
+    SET
+        blogphoto = #{is_MenualName2}
+        , profilephoto = #{is_MenualName3}
+        , introduction = #{textArea2}
+    WHERE usernum = #{userNum}
+  </update>
+
+</mapper>

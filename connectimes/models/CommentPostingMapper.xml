@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommentPostingMapper">  
+
+  <insert id="insertComment"> 
+    INSERT INTO react.comment
+    (
+        usernum
+        , postnum
+        , text
+        , regtime
+    )
+    VALUES (
+      #{userNum}
+      , #{commentPostNum}      
+      , #{text}
+      , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+
+    )
+  </insert>  
+
+</mapper>

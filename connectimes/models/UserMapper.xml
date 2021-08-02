@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">  
+  <insert id="insertUser"> 
+    INSERT INTO react.user
+    (
+      email
+      , pw
+      , nickName
+      , regTime
+    )
+    VALUES (
+      CONCAT(#{is_email1}, '@', #{is_email2})
+      , #{is_pw}
+      , #{is_nickName}
+      , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+      )
+  </insert>
+
+  <select id="selectUserDpliCheck">
+      SELECT 
+        count(*) as num
+      FROM
+      react.user
+      WHERE email = #{is_Email}
+  </select>
+
+  <select id="selectLoginCheck">
+      SELECT 
+      email
+      , pw
+      , usernum
+      FROM
+      react.user
+      WHERE email = #{is_Email}
+  </select>
+
+  <select id="selectSessionLoginCheck">
+      SELECT 
+      email
+      , pw
+      FROM
+      react.user
+      WHERE email = #{is_Email}
+      AND pw = #{is_Token}
+  </select>
+
+  <select id="selectLoginResetCheck">
+      SELECT 
+      pw
+      FROM
+      react.user
+      WHERE email = #{is_Email}
+      AND name = #{is_name}
+  </select>
+
+  <select id="selectEmailTokenCheck">
+      SELECT 
+      email
+      , pw
+      FROM
+      react.user
+      WHERE email = #{is_Email}
+      AND pw like CONCAT('%', #{is_Token}, '%')
+  </select>
+
+  <update id="updatePwdUser">
+      UPDATE react.user
+      SET
+      pw = #{is_Password}
+		WHERE email = #{is_Email}
+	</update>
+</mapper>

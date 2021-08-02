@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CallPostMapper">  
+  <select id="selectPost"> 
+      SELECT
+        postnum
+        , nickname
+        , profilephoto
+        , text
+        , image
+        , tagname
+        , react.post.regtime
+        , likes
+      FROM react.user, react.post
+      WHERE react.user.usernum = react.post.usernum AND react.post.usernum IN (SELECT usernum
+                                                                                FROM react.user
+                                                                                WHERE nickname = #{nickName})
+      ORDER BY postnum DESC
+      LIMIT ${preItems}, ${items}
+  </select>
+
+  <select id="selectPost2"> 
+      SELECT
+        postnum
+        , nickname
+        , profilephoto
+        , text
+        , image
+        , tagname
+        , react.post.regtime
+        , likes
+      FROM react.user, react.post
+      WHERE react.user.usernum = react.post.usernum AND react.post.usernum IN (SELECT usernum
+                                                                                FROM react.user
+                                                                                WHERE nickname = #{nickName}) AND react.post.tagname = #{tagname}
+      ORDER BY postnum DESC
+      LIMIT ${preItems}, ${items}
+  </select>
+</mapper>
